@@ -1,6 +1,6 @@
 const fs = require('fs');
-// let finalFolder = "C:/Users/cardonacoder/Downloads/RN/TestFolder/";
-let finalFolder = "C:/Users/cardonacoder/Downloads/RN/RN ZTM/";
+// let finalFolder = "C:\Users\cardonacoder\OneDrive - UPB\Recordings\TGP";
+let finalFolder = "C:/Users/cardonacoder/OneDrive - UPB/Recordings/F del D/";
 
 const files = [
     {
@@ -75,7 +75,7 @@ const renamingFiles = (folder, fileType) => {
             let slicePos = f.indexOf(". ",);
             let aux = f.slice(0,slicePos);
             let auxZero = aux.length === 2 ? aux : "0"+aux;
-            let finalName =finalDest+initNum+" "+auxZero+" RN "+f.slice(3,f.length);
+            let finalName =finalDest+initNum+" "+auxZero+" RN ACADEMIND"+f.slice(3,f.length);
             isSelectedType(f.toString(),fileType) ?  moveFile(folder+f,finalName) : deleteFile(folder,f);
         });
     });
@@ -93,9 +93,60 @@ const manageFiles = (folder,typeFile) => {
     });
 };
 
+const correctName = (folder) =>{
+    fs.readdir(folder, (e, file)=> {
+        if(e){ console.log(e); }
+        file.forEach(e=>{
+/*             if(e.indexOf("D Penal General I") === -1){
+                let aux = e.replace("D Penal General I","Const Co I - Dogmática");
+                console.log(folder+aux);
+                
+                moveFile(folder+e,folder+aux);
+            } */
+            let aux = e.replace(" Derecho Penal I"," Teoría General del Proceso");
+            moveFile(folder+e,folder+aux);
+
+        });
+
+    });
+};
+
+
+const putClassNumber = (folder) =>{
+    fs.readdir(folder, (e, file)=> {
+        if(e){ console.log(e); }
+        let c = 17;
+        file.forEach(e=>{
+            let aux = e.indexOf("2021");
+            let cAux = c < 10 ? "0"+c :c;
+            //console.log("C#"+cAux+" "+e.slice(0,aux+8)+" Teoría General del Proceso.mp4");
+            moveFile(folder+e,folder+"C#"+cAux+" "+e.slice(0,aux+8)+" Filosofía del Derecho.mp4");
+            c++;
+        });
+
+    });
+};
+
+const extractDate = (folder) => {
+    fs.readdir(folder, (e, file)=> {
+        if(e){ console.log(e); }
+
+        file.forEach(e=>{
+            let aux = e.indexOf("2021");
+
+            //console.log(folder+e,folder+e.slice(aux,aux+8)+".mp4");
+            moveFile(folder+e,folder+e.slice(aux,aux+8)+".mp4");
+
+        });
+
+    });
+}
+
 // createTestFolders(finalFolder);
 // deleteTestFolders(finalFolder);
-manageFiles(finalFolder, "mp4");
-
+// manageFiles(finalFolder, "mp4");
+// correctName(finalFolder);
+// putClassNumber(finalFolder);
+extractDate(finalFolder);
 
 
