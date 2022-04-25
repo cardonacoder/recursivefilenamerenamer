@@ -1,6 +1,6 @@
 const fs = require('fs');
-// let finalFolder = "C:\Users\cardonacoder\OneDrive - UPB\Recordings\TGP";
-let finalFolder = "C:/Users/cardonacoder/OneDrive - UPB/Recordings/F del D/";
+// let finalFolder = "C:/Users\cardonacoder\OneDrive - UPB\Recordings\Const. Co. (Dogmática)";
+let finalFolder = "C:/Users/cardonacoder/OneDrive - UPB/HyA/";
 
 const files = [
     {
@@ -16,6 +16,9 @@ const files = [
         content: ["1. File3.1", "2. File3.2", "3. File3.3", "4. File3.4", "5. File3.5"]
     }
 ];
+
+const replaceAll = (string, search, replace) => string.split(search).join(replace);
+  
 
 const createFolderFx = (folderName) => {
 
@@ -115,12 +118,13 @@ const correctName = (folder) =>{
 const putClassNumber = (folder) =>{
     fs.readdir(folder, (e, file)=> {
         if(e){ console.log(e); }
-        let c = 17;
+        let c = 1;
         file.forEach(e=>{
             let aux = e.indexOf("2021");
             let cAux = c < 10 ? "0"+c :c;
-            //console.log("C#"+cAux+" "+e.slice(0,aux+8)+" Teoría General del Proceso.mp4");
-            moveFile(folder+e,folder+"C#"+cAux+" "+e.slice(0,aux+8)+" Filosofía del Derecho.mp4");
+
+            // console.log("C#"+cAux+" "+e.slice(0,aux+8)+" Const Co Dogmática [3-0].mp4");
+            moveFile(folder+e,folder+"C#"+cAux+" "+e.slice(0,aux+8)+" Hermeneutica y Argumentación Jurídica con Enán.mp4");
             c++;
         });
 
@@ -142,11 +146,55 @@ const extractDate = (folder) => {
     });
 }
 
+
+
+
+
+
 // createTestFolders(finalFolder);
 // deleteTestFolders(finalFolder);
 // manageFiles(finalFolder, "mp4");
 // correctName(finalFolder);
-// putClassNumber(finalFolder);
-extractDate(finalFolder);
+ putClassNumber(finalFolder);
+// extractDate(finalFolder);
 
+
+
+/*
+
+Marco normativo del proceso auditor
+Marco normativo de la institución de la auditoria
+como se creo, cuales fueron sus fundamentos,
+
+*/
+
+
+
+
+const extractNames = (folder) => {
+    let extractedNames = [];
+
+    fs.readdir(folder, (e, files)=> {
+        if(e)
+            console.log(e);
+        else{
+            // .replaceAll('-','')
+            let FN = [];
+            let aux
+            let c = 1;
+            files.forEach(e=>{
+            aux = replaceAll(e,'-','');
+            let cAux = c < 10 ? "0"+c :c;
+
+            moveFile(folder+e,folder+'DTI #A# C#'+cAux+' '+aux);
+            //console.log(folder+'DTI #A# C#'+cAux+' '+aux);  
+            c++;    
+            });
+        }
+        
+    });
+};
+
+
+//extractNames(finalFolder)
 
